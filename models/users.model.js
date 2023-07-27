@@ -5,8 +5,9 @@ const userSchema = mongoose.Schema({
     name: { type: String, required: true },
     age: { type: Number, required: true },
     gender: { type: String, required: true },
+    imageURL: { type: String, required: true },
     email: { type: String, required: true },
-    userID: { type: String, required:true },
+    userID: { type: String, required: true },
 }, {
     versionKey: false
 })
