@@ -14,6 +14,45 @@ userRouter.get("/", async (req, res) => {
 
 })
 
+userRouter.get("/search", async (req, res) => {
+    const query = req.query.search
+    try {
+        const users = await UserModel.find({ "name": { "$regex": query, "$options": "i" } })
+        res.status(200).send(users)
+    } catch (err) {
+        res.status(400).send({ "err": err.message })
+    }
+
+})
+
+userRouter.get("/sort", async (req, res) => {
+    const order = req.query.age
+    try {
+        if (order == "asc") {
+            const users = await UserModel.find().sort({ "age": 1 })
+            res.status(200).send(users)
+        } else {
+            const users = await UserModel.find().sort({ "age": -1 })
+            res.status(200).send(users)
+
+        }
+    } catch (err) {
+        res.status(400).send({ "err": err.message })
+    }
+
+})
+
+userRouter.get("/filter", async (req, res) => {
+    const query = req.query.gender
+    try {
+        const users = await UserModel.find({ "gender": query })
+        res.status(200).send(users)
+    } catch (err) {
+        res.status(400).send({ "err": err.message })
+    }
+
+})
+
 
 userRouter.get("/self", async (req, res) => {
 
